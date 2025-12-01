@@ -1,0 +1,9 @@
+[
+  {"name":"Merkez","lat":38.4300,"lon":27.2000,"sectors":[0,120,240]},
+  {"name":"Doğu","lat":38.4300,"lon":27.2365,"sectors":[0,120,240]},
+  {"name":"Kuzeydoğu","lat":38.4444,"lon":27.2316,"sectors":[0,120,240]},
+  {"name":"Kuzeybatı","lat":38.4156,"lon":27.2316,"sectors":[0,120,240]},
+  {"name":"Batı","lat":38.4300,"lon":27.1635,"sectors":[0,120,240]},
+  {"name":"Güneybatı","lat":38.4156,"lon":27.1684,"sectors":[0,120,240]},
+  {"name":"Güneydoğu","lat":38.4444,"lon":27.1684,"sectors":[0,120,240]}
+]

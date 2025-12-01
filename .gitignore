@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# ns-3 sources ignored (clone separately)
+ns-3-dev/
+
+# Logs and progress
+results/*/*.txt
+results/*/*.log
+
+# Databases
+results/nr_beam/*.db

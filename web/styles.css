@@ -1,0 +1,15 @@
+html, body { height: 100%; margin: 0; }
+#layout { display: flex; height: 100vh; }
+#sidebar { width: 55vw; overflow-y: auto; background: #0b1220; color: #e5e7eb; padding: 16px; box-shadow: inset -1px 0 0 #1f2937; }
+#map { width: 45vw; height: 100vh; }
+section { margin: 12px 0; }
+#sidebar h1 { font-size: 20px; margin: 0 0 8px 0; font-weight: 600; }
+h2 { font-size: 14px; margin: 12px 0 8px; color: #93c5fd; letter-spacing: 0.2px; }
+.card { background: #111827; border: 1px solid #1f2937; border-radius: 10px; padding: 10px; }
+table { width: 100%; border-collapse: collapse; border-spacing: 0; }
+thead th { background: #1f2937; color: #cbd5e1; font-weight: 500; padding: 8px; font-size: 12px; text-align: left; }
+tbody td { border-top: 1px solid #1f2937; padding: 8px; font-size: 12px; }
+tbody tr:hover { background: #0f172a; }
+button { background: #2563eb; color: white; border: none; padding: 8px 10px; border-radius: 8px; cursor: pointer; font-size: 12px; }
+button.secondary { background: #334155; }
+.pill { display: inline-block; padding: 4px 8px; background: #1f2937; border-radius: 999px; font-size: 12px; }

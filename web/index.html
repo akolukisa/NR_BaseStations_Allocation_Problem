@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>İzmir gNB Sahaları ve Sektörler</title>
+</head>
+<body>
+  <div id="layout">
+    <div id="sidebar">
+      <h1>Simülasyon ve Karşılaştırma</h1>
+      <div id="controls" class="card"></div>
+      <section>
+        <h2>Özet</h2>
+        <div id="scenario" class="pill"></div>
+        <div id="metrics"></div>
+      </section>
+      <section>
+        <h2>Simülasyon Sonuçları</h2>
+        <div id="results" class="card"></div>
+      </section>
+      <section>
+        <h2>NR Demo Akışları</h2>
+        <div id="nr" class="card"></div>
+      </section>
+      <section>
+        <h2>Progress</h2>
+        <div id="progress" class="card"></div>
+      </section>
+      <section>
+        <h2>Karşılaştırma</h2>
+        <div id="compare" class="card"></div>
+      </section>
+    </div>
+    <div id="map"></div>
+  </div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js?v=5"></script>
+</body>
+</html>

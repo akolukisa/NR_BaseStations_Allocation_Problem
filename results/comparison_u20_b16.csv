@@ -1,0 +1,6 @@
+method,feasible,total_bps,jain,objective,users,beams
+ga,True,468851,0.4877,396793.09,20,16
+hga,True,470023,0.5665,408900.17,20,16
+pbig,True,846750,0.8491,808422.65,20,16
+max_sinr,True,892104,0.8984,864920.87,20,16
+random,True,88694,0.4471,73983.59,20,16
