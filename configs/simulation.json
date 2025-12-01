@@ -24,7 +24,8 @@
   "noise_power_w": 3.98107e-13,
   "alpha": 0.3,
   "qos_min_bps": 0,
-  "prb_per_beam": 400,
-  "prb_per_user": 2,
+  "prb_bandwidth_hz": 360000,
+  "prb_per_beam": 1000,
+  "prb_per_user": 100,
   "seed": 42
 }

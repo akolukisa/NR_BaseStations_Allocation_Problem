@@ -22,7 +22,7 @@ def compute_metrics(assignment, env):
                     continue
                 interf += env.p_jk[jj][kk] * env.H[i][jj][kk]
         sinr = num / (interf + env.noise_power_w + 1e-30)
-        bps = env.prb_per_user * 180000 * env.dl_fraction * math.log2(1.0 + sinr)
+        bps = env.prb_per_user * env.prb_bw_hz * env.dl_fraction * math.log2(1.0 + sinr)
         if bps < env.qos_min_bps:
             feasible = False
         rates.append(max(bps, 0.0))
@@ -61,7 +61,7 @@ def repair_assignment(assignment, env):
                             continue
                         interf += env.p_jk[jjj][kkk] * env.H[i][jjj][kkk]
                 sinr = num / (interf + env.noise_power_w + 1e-30)
-                rate = env.prb_per_user * 180000 * env.dl_fraction * math.log2(1.0 + sinr)
+                rate = env.prb_per_user * env.prb_bw_hz * env.dl_fraction * math.log2(1.0 + sinr)
                 if rate > best_rate:
                     best_rate = rate
                     best = (jj, kk)

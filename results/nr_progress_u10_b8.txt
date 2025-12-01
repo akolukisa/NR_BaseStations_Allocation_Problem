@@ -1,0 +1,2 @@
+NS-3 Running (u10 b8) Mon Dec  1 06:45:57 +03 2025
+Done
