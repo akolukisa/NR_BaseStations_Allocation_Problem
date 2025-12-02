@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Algoritma Formülleri ve Şemaları</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .container { max-width: 980px; margin: 24px auto; padding: 0 12px; color: #e5e7eb; }
+    .section { margin: 16px 0; }
+    .section h2 { font-size: 18px; color: #93c5fd; margin-bottom: 8px; }
+    .card { background: #111827; border: 1px solid #1f2937; border-radius: 10px; padding: 14px; }
+    .formula { background: #0b1220; border: 1px solid #1f2937; border-radius: 8px; padding: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 13px; }
+    .diagram { background: #0b1220; border: 1px solid #1f2937; border-radius: 8px; padding: 10px; }
+    .pill { display:inline-block; padding:6px 10px; background:#16213a; border:1px solid #334155; border-radius:999px; font-size:13px; }
+    a.btn { display:inline-block; background:#2563eb; color:#fff; padding:8px 10px; border-radius:8px; text-decoration:none; font-size:12px; }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  </style>
+</head>
+<body style="background:#0b1220;">
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h1 style="font-size:20px; margin:0;">Algoritma Formülleri ve Şemaları</h1>
+      <a class="btn" href="index.html">Ana Sayfa</a>
+    </div>
+    <div class="section card">
+      <div style="margin-bottom:8px;" class="pill">Sistem Formülleri</div>
+      <div class="grid">
+        <div>
+          <div class="formula">SINR_i = (P_{j,k} · H_{i,j,k}) / (\u2211_{(j',k') \u2260 (j,k)} P_{j',k'} · H_{i,j',k'} + N_0)</div>
+          <div style="height:8px"></div>
+          <div class="formula">R_i = PRB_{user} · BW_{PRB} · DL_{frac} · log2(1 + SINR_i)</div>
+          <div style="height:8px"></div>
+          <div class="formula">J = ( (\u2211_i R_i)^2 ) / ( N · \u2211_i R_i^2 )</div>
+          <div style="height:8px"></div>
+          <div class="formula">Amaç F(X) = (1−\u03B1) · \u2211_i R_i + \u03B1 · J · \u2211_i R_i</div>
+        </div>
+        <div>
+          <div class="formula">Kısıtlar:</div>
+          <div class="formula">\u2022 Tekil atama: her i için bir (j,k)</div>
+          <div class="formula">\u2022 PRB kapasitesi: \u2211 atanmış PRB \u2264 PRB_{beam}</div>
+          <div class="formula">\u2022 Güç: \u2211_k P_{j,k} \u2264 P_{j}^{max}</div>
+          <div class="formula">\u2022 QoS: R_i \u2265 R_{min}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section card">
+      <h2>GA (Genetik Algoritma)</h2>
+      <div class="formula">Kromozom: X = [(j_1,k_1), (j_2,k_2), ..., (j_I,k_I)]</div>
+      <div class="diagram">
+        <svg width="100%" height="140" viewBox="0 0 800 140">
+          <rect x="10" y="20" width="130" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="75" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Başlangıç Pop.</text>
+          <rect x="160" y="20" width="120" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="220" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Uygunluk</text>
+          <rect x="300" y="20" width="110" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="355" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Seçilim</text>
+          <rect x="430" y="20" width="110" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="485" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Çaprazlama</text>
+          <rect x="560" y="20" width="110" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="615" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Mutasyon</text>
+          <rect x="690" y="20" width="100" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="740" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Onarım</text>
+          <line x1="140" y1="40" x2="160" y2="40" stroke="#334155"/><line x1="280" y1="40" x2="300" y2="40" stroke="#334155"/><line x1="410" y1="40" x2="430" y2="40" stroke="#334155"/><line x1="540" y1="40" x2="560" y2="40" stroke="#334155"/><line x1="670" y1="40" x2="690" y2="40" stroke="#334155"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="section card">
+      <h2>HGA (Hibrit Genetik + Yerel Arama)</h2>
+      <div class="formula">GA adımlarına ek: komşu çözümde tek gen değiştir, onar, uygunluk artarsa kabul et (kısıtlı bütçe).</div>
+      <div class="diagram">
+        <svg width="100%" height="140" viewBox="0 0 800 140">
+          <rect x="10" y="20" width="200" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="110" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">GA Jenerasyon Döngüsü</text>
+          <line x1="210" y1="40" x2="300" y2="40" stroke="#334155"/>
+          <rect x="300" y="20" width="160" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="380" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Seçili Bireylere LS</text>
+          <line x1="460" y1="40" x2="540" y2="40" stroke="#334155"/>
+          <rect x="540" y="20" width="240" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="660" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Uygunluk Artarsa Kabul</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="section card">
+      <h2>PBIG (Popülasyon Tabanlı Yıkım/Yapım)</h2>
+      <div class="formula">Yıkım: çözümde bir alt küme gen sahipsiz bırakılır. Yapım: her boş gen için amaç fonksiyonunu artıran açgözlü atama yapılır.</div>
+      <div class="diagram">
+        <svg width="100%" height="140" viewBox="0 0 800 140">
+          <rect x="10" y="20" width="160" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="90" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Yıkım (m gen)</text>
+          <line x1="170" y1="40" x2="260" y2="40" stroke="#334155"/>
+          <rect x="260" y="20" width="180" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="350" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Onarım Kapasite</text>
+          <line x1="440" y1="40" x2="530" y2="40" stroke="#334155"/>
+          <rect x="530" y="20" width="220" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="640" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Açgözlü Atama (m gen)</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="section card">
+      <h2>Max‑SINR</h2>
+      <div class="formula">Her kullanıcı için tüm (j,k)’lar üzerinde SINR hesaplanır, en yüksek SINR veren çift seçilir; kapasite aşımı varsa onarım.</div>
+      <div class="diagram">
+        <svg width="100%" height="120" viewBox="0 0 800 120">
+          <rect x="10" y="20" width="220" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="120" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Argmax SINR (i için)</text>
+          <line x1="230" y1="40" x2="320" y2="40" stroke="#334155"/>
+          <rect x="320" y="20" width="160" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="400" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Atama</text>
+          <line x1="480" y1="40" x2="560" y2="40" stroke="#334155"/>
+          <rect x="560" y="20" width="200" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="660" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Onarım Kapasite</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="section card">
+      <h2>Rastgele Atama</h2>
+      <div class="formula">Kapasiteyi gözeterek rastgele (j,k) seçimleri; kapasite aşımında onarım uygulanır.</div>
+      <div class="diagram">
+        <svg width="100%" height="120" viewBox="0 0 800 120">
+          <rect x="10" y="20" width="200" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="110" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Rastgele (j,k)</text>
+          <line x1="210" y1="40" x2="300" y2="40" stroke="#334155"/>
+          <rect x="300" y="20" width="200" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="400" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Onarım Kapasite</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
