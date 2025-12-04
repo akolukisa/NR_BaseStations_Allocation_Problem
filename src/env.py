@@ -58,17 +58,21 @@ class Environment:
     def _rayleigh(self):
         return random.expovariate(1.0)
     def _generate_gnb_positions(self, J, lat0, lon0):
-        positions = []
-        positions.append((lat0, lon0))
+        positions = [(lat0, lon0)]
         if J == 1:
             return positions
-        r = 3500.0
-        angles = [0, 60, 120, 180, 240, 300]
-        for a in angles:
-            dLat, dLon = self._meters_to_deg(lat0, r * math.cos(self._deg2rad(a)), r * math.sin(self._deg2rad(a)))
-            positions.append((lat0 + dLat, lon0 + dLon))
-            if len(positions) == J:
-                break
+        base_r = 3500.0
+        ring = 1
+        while len(positions) < J and ring <= 10:
+            n = 6 * ring
+            step = 360.0 / n
+            for t in range(n):
+                a = t * step
+                dLat, dLon = self._meters_to_deg(lat0, base_r * ring * math.cos(self._deg2rad(a)), base_r * ring * math.sin(self._deg2rad(a)))
+                positions.append((lat0 + dLat, lon0 + dLon))
+                if len(positions) == J:
+                    break
+            ring += 1
         return positions[:J]
     def _generate_ue_positions(self, I, gnb_pos):
         positions = []

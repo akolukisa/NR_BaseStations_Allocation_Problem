@@ -34,3 +34,6 @@ def max_sinr(env):
 def random_assignment(env):
     a = [(random.randrange(env.J), random.randrange(env.K)) for _ in range(env.I)]
     return repair_assignment(a, env)
+
+def random_assoc_no_repair(env):
+    return [(random.randrange(env.J), random.randrange(env.K)) for _ in range(env.I)]

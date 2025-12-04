@@ -1,0 +1,4 @@
+method,feasible,total_bps,jain,objective,users,beams
+random_no_repair,True,221797387,0.0666,159688119.36,200,8
+random_rbm_lower_stat,True,28677751328,0.8906,27736469208.25,200,8
+random_rbm_lower_ls,True,215122255,0.3163,170998671.17,200,8

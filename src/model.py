@@ -70,3 +70,62 @@ def repair_assignment(assignment, env):
         repaired[i] = best
         usage[best[0]][best[1]] += env.prb_per_user
     return repaired
+
+def compute_metrics_lower(assignment, env, mode="stat"):
+    def deg2rad(d):
+        return d * math.pi / 180.0
+    def haversine(lat1, lon1, lat2, lon2):
+        R = 6371000.0
+        dLat = deg2rad(lat2 - lat1)
+        dLon = deg2rad(lon2 - lon1)
+        a = math.sin(dLat/2)**2 + math.cos(deg2rad(lat1))*math.cos(deg2rad(lat2))*math.sin(dLon/2)**2
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        return R * c
+    def path_gain(d_m):
+        fc_ghz = 3.5
+        pl_db = 28.0 + 22.0 * math.log10(max(d_m, 1.0)) + 20.0 * math.log10(fc_ghz)
+        return 10 ** (-pl_db / 10)
+    beams_usage = [[0 for _ in range(env.K)] for _ in range(env.J)]
+    for i, (j, k) in enumerate(assignment):
+        beams_usage[j][k] += env.prb_per_user
+    feasible = True
+    for j in range(env.J):
+        total_power = sum(env.p_jk[j])
+        if total_power > env.p_jmax + 1e-9:
+            feasible = False
+        for k in range(env.K):
+            if beams_usage[j][k] > env.beam_prb_capacity[j][k]:
+                feasible = False
+    rates = []
+    for i, (j, k) in enumerate(assignment):
+        d0 = haversine(env.ue_pos[i][0], env.ue_pos[i][1], env.gnb_pos[j][0], env.gnb_pos[j][1])
+        g_sig = path_gain(d0)
+        num = env.p_jk[j][k] * g_sig
+        interf = 0.0
+        if mode == "stat":
+            interf = 0.0
+        elif mode == "ls":
+            for jj in range(env.J):
+                for kk in range(env.K):
+                    if jj == j and kk == k:
+                        continue
+                    dI = haversine(env.ue_pos[i][0], env.ue_pos[i][1], env.gnb_pos[jj][0], env.gnb_pos[jj][1])
+                    interf += env.p_jk[jj][kk] * path_gain(dI)
+        sinr = num / (interf + env.noise_power_w + 1e-30)
+        bps = env.prb_per_user * env.prb_bw_hz * env.dl_fraction * math.log2(1.0 + sinr)
+        if bps < env.qos_min_bps:
+            feasible = False
+        rates.append(max(bps, 0.0))
+    total = sum(rates)
+    denom = len(rates) * sum(r * r for r in rates)
+    jain = 0.0
+    if denom > 0:
+        jain = (total * total) / denom
+    f = (1.0 - env.alpha) * total + env.alpha * jain * total
+    return {
+        "feasible": feasible,
+        "rates": rates,
+        "total": total,
+        "jain": jain,
+        "objective": f
+    }

@@ -24,6 +24,29 @@
       <a class="btn" href="index.html">Ana Sayfa</a>
     </div>
     <div class="section card">
+      <div style="margin-bottom:8px;" class="pill">Değişkenler ve Anlamları</div>
+      <div class="grid">
+        <div>
+          <div class="formula">i: Kullanıcı indeksi</div>
+          <div class="formula">j: Baz istasyonu (gNB) indeksi</div>
+          <div class="formula">k: Hüzme (beam) indeksi</div>
+          <div class="formula">P_{j,k}: j’nci gNB’nin k’nci hüzmesine ayrılan güç</div>
+          <div class="formula">H_{i,j,k}: i kullanıcı için (j,k) hüzmesinin kanal kazancı</div>
+          <div class="formula">N_0: Gürültü gücü</div>
+          <div class="formula">BW_{PRB}: PRB başına bant genişliği</div>
+        </div>
+        <div>
+          <div class="formula">PRB_{user}: Kullanıcıya tahsis edilen PRB adedi</div>
+          <div class="formula">DL_{frac}: TDD’de downlink zaman oranı</div>
+          <div class="formula">R_i: i kullanıcısının veri hızı</div>
+          <div class="formula">J: Jain adalet indeksi (0–1)</div>
+          <div class="formula">\u03B1: Adalet ağırlığı (0–1)</div>
+          <div class="formula">R_{min}: QoS için minimum hız eşiği</div>
+          <div class="formula">X: Tüm kullanıcıların (j,k) atama vektörü</div>
+        </div>
+      </div>
+    </div>
+    <div class="section card">
       <div style="margin-bottom:8px;" class="pill">Sistem Formülleri</div>
       <div class="grid">
         <div>
@@ -49,15 +72,50 @@
       <h2>GA (Genetik Algoritma)</h2>
       <div class="formula">Kromozom: X = [(j_1,k_1), (j_2,k_2), ..., (j_I,k_I)]</div>
       <div class="diagram">
-        <svg width="100%" height="140" viewBox="0 0 800 140">
-          <rect x="10" y="20" width="130" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="75" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Başlangıç Pop.</text>
-          <rect x="160" y="20" width="120" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="220" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Uygunluk</text>
-          <rect x="300" y="20" width="110" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="355" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Seçilim</text>
-          <rect x="430" y="20" width="110" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="485" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Çaprazlama</text>
-          <rect x="560" y="20" width="110" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="615" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Mutasyon</text>
-          <rect x="690" y="20" width="100" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="740" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Onarım</text>
-          <line x1="140" y1="40" x2="160" y2="40" stroke="#334155"/><line x1="280" y1="40" x2="300" y2="40" stroke="#334155"/><line x1="410" y1="40" x2="430" y2="40" stroke="#334155"/><line x1="540" y1="40" x2="560" y2="40" stroke="#334155"/><line x1="670" y1="40" x2="690" y2="40" stroke="#334155"/>
-        </svg>
+        <div class="lane">
+          <div class="tile">
+            <div class="title">Başlangıç Pop.</div>
+            <div class="body">
+              <div class="item">Feasible rastgele atamalar</div>
+              <div class="item">Kapasiteye göre PRB yerleşimi</div>
+            </div>
+          </div>
+          <div class="tile">
+            <div class="title">Uygunluk</div>
+            <div class="body">
+              <div class="item">F(X)= (1−α)·ΣR_i + α·J·ΣR_i</div>
+              <div class="item">Kısıt ihlali cezası</div>
+            </div>
+          </div>
+          <div class="tile">
+            <div class="title">Seçilim</div>
+            <div class="body">
+              <div class="item">Rulet tekeri</div>
+              <div class="item">Orantılı seçim</div>
+            </div>
+          </div>
+          <div class="tile">
+            <div class="title">Çaprazlama</div>
+            <div class="body">
+              <div class="item">Tek nokta kesim</div>
+              <div class="item">Gen dizisi birleştirme</div>
+            </div>
+          </div>
+          <div class="tile">
+            <div class="title">Mutasyon</div>
+            <div class="body">
+              <div class="item">Rastgele (j,k) değişimi</div>
+              <div class="item">Çeşitlilik artırımı</div>
+            </div>
+          </div>
+          <div class="tile">
+            <div class="title">Onarım</div>
+            <div class="body">
+              <div class="item">Kapasite/PRB kontrolü</div>
+              <div class="item">En iyi komşuya taşı</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -65,13 +123,29 @@
       <h2>HGA (Hibrit Genetik + Yerel Arama)</h2>
       <div class="formula">GA adımlarına ek: komşu çözümde tek gen değiştir, onar, uygunluk artarsa kabul et (kısıtlı bütçe).</div>
       <div class="diagram">
-        <svg width="100%" height="140" viewBox="0 0 800 140">
-          <rect x="10" y="20" width="200" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="110" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">GA Jenerasyon Döngüsü</text>
-          <line x1="210" y1="40" x2="300" y2="40" stroke="#334155"/>
-          <rect x="300" y="20" width="160" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="380" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Seçili Bireylere LS</text>
-          <line x1="460" y1="40" x2="540" y2="40" stroke="#334155"/>
-          <rect x="540" y="20" width="240" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="660" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Uygunluk Artarsa Kabul</text>
-        </svg>
+        <div class="lane">
+          <div class="tile">
+            <div class="title">GA Döngüsü</div>
+            <div class="body">
+              <div class="item">Seçilim/Çaprazlama/Mutasyon</div>
+              <div class="item">Popülasyon güncelleme</div>
+            </div>
+          </div>
+          <div class="tile">
+            <div class="title">Yerel Arama (LS)</div>
+            <div class="body">
+              <div class="item">Tek gen komşu dene</div>
+              <div class="item">Onarım sonrası uygunluk</div>
+            </div>
+          </div>
+          <div class="tile">
+            <div class="title">Kabul</div>
+            <div class="body">
+              <div class="item">Uygunluk artarsa değiştir</div>
+              <div class="item">Bütçe sınırlı LS</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -79,13 +153,11 @@
       <h2>PBIG (Popülasyon Tabanlı Yıkım/Yapım)</h2>
       <div class="formula">Yıkım: çözümde bir alt küme gen sahipsiz bırakılır. Yapım: her boş gen için amaç fonksiyonunu artıran açgözlü atama yapılır.</div>
       <div class="diagram">
-        <svg width="100%" height="140" viewBox="0 0 800 140">
-          <rect x="10" y="20" width="160" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="90" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Yıkım (m gen)</text>
-          <line x1="170" y1="40" x2="260" y2="40" stroke="#334155"/>
-          <rect x="260" y="20" width="180" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="350" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Onarım Kapasite</text>
-          <line x1="440" y1="40" x2="530" y2="40" stroke="#334155"/>
-          <rect x="530" y="20" width="220" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="640" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Açgözlü Atama (m gen)</text>
-        </svg>
+        <div class="lane">
+          <div class="tile"><div class="title">Yıkım</div><div class="body"><div class="item">m gen boşalt</div><div class="item">Çeşitlilik sağla</div></div></div>
+          <div class="tile"><div class="title">Onarım</div><div class="body"><div class="item">Kapasite/PRB dengele</div><div class="item">Feasible yap</div></div></div>
+          <div class="tile"><div class="title">Açgözlü Yapım</div><div class="body"><div class="item">Her boş gen için en iyi (j,k)</div><div class="item">Amaç fonksiyonu maksimize</div></div></div>
+        </div>
       </div>
     </div>
 
@@ -93,13 +165,11 @@
       <h2>Max‑SINR</h2>
       <div class="formula">Her kullanıcı için tüm (j,k)’lar üzerinde SINR hesaplanır, en yüksek SINR veren çift seçilir; kapasite aşımı varsa onarım.</div>
       <div class="diagram">
-        <svg width="100%" height="120" viewBox="0 0 800 120">
-          <rect x="10" y="20" width="220" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="120" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Argmax SINR (i için)</text>
-          <line x1="230" y1="40" x2="320" y2="40" stroke="#334155"/>
-          <rect x="320" y="20" width="160" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="400" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Atama</text>
-          <line x1="480" y1="40" x2="560" y2="40" stroke="#334155"/>
-          <rect x="560" y="20" width="200" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="660" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Onarım Kapasite</text>
-        </svg>
+        <div class="lane">
+          <div class="tile"><div class="title">Argmax SINR</div><div class="body"><div class="item">Kullanıcı için tüm (j,k)</div><div class="item">En yüksek SINR’ı seç</div></div></div>
+          <div class="tile"><div class="title">Atama</div><div class="body"><div class="item">Seçilen (j,k)’ye yerleştir</div><div class="item">PRB ekle</div></div></div>
+          <div class="tile"><div class="title">Onarım</div><div class="body"><div class="item">Kapasite aşarsa taşı</div><div class="item">Feasible çözüm</div></div></div>
+        </div>
       </div>
     </div>
 
@@ -107,14 +177,12 @@
       <h2>Rastgele Atama</h2>
       <div class="formula">Kapasiteyi gözeterek rastgele (j,k) seçimleri; kapasite aşımında onarım uygulanır.</div>
       <div class="diagram">
-        <svg width="100%" height="120" viewBox="0 0 800 120">
-          <rect x="10" y="20" width="200" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="110" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Rastgele (j,k)</text>
-          <line x1="210" y1="40" x2="300" y2="40" stroke="#334155"/>
-          <rect x="300" y="20" width="200" height="40" rx="8" fill="#1f2937" stroke="#334155"/><text x="400" y="45" fill="#cbd5e1" text-anchor="middle" font-size="12">Onarım Kapasite</text>
-        </svg>
+        <div class="lane">
+          <div class="tile"><div class="title">Rastgele</div><div class="body"><div class="item">Her kullanıcıya (j,k)</div><div class="item">Çeşitlilik odaklı</div></div></div>
+          <div class="tile"><div class="title">Onarım</div><div class="body"><div class="item">Kapasite/PRB dengesi</div><div class="item">Feasible çözüm</div></div></div>
+        </div>
       </div>
-    </div>
   </div>
+  
 </body>
 </html>
-
