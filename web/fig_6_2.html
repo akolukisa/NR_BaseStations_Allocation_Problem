@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Şekil 6.2: Jain Adalet İndeksi</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .wrap { padding: 16px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Şekil 6.2: Jain Adalet İndeksinin Kullanıcı Sayısına Göre Değişimi</h1>
+    <canvas id="chart" height="120"></canvas>
+  </div>
+  <script>
+  fetch('../results/fig_6_2.csv?v=' + Date.now()).then(r=>r.text()).then(txt=>{
+    const lines = txt.trim().split('\n');
+    const data = lines.slice(1).map(l=>l.split(',').map(v=>parseFloat(v)));
+    const users = data.map(r=>r[0]);
+    const idx = {hga:1,pbig:2,ga:3,max_sinr:4,random:5};
+    const colors = { hga:'#10b981', pbig:'#f59e0b', ga:'#ef4444', max_sinr:'#3b82f6', random:'#6b7280' };
+    const ds = Object.keys(idx).map(k=>({ label:k, data:data.map(r=>r[idx[k]]), borderColor:colors[k], tension:0.15 }));
+    new Chart(document.getElementById('chart'), {
+      type: 'line',
+      data: { labels: users, datasets: ds },
+      options: { plugins:{ legend:{ position:'bottom' } }, scales:{ y:{ min:0, max:1, title:{ display:true, text:'Jain Adalet İndeksi' } }, x:{ title:{ display:true, text:'Kullanıcı Sayısı' } } } }
+    });
+  }).catch(()=>{ document.getElementById('chart').outerHTML = '<div class="pill" style="padding:12px">Veri bulunamadı: results/fig_6_2.csv</div>' })
+  </script>
+  </body>
+  </html>

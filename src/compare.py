@@ -4,7 +4,7 @@ from env import load_config, Environment
 from model import compute_metrics, compute_metrics_lower
 from algorithms.ga import run as run_ga
 from algorithms.hga import run as run_hga
-from algorithms.pbig import run as run_pbig
+from algorithms.pbig import run as run_pbig, run_det as run_pbig_det, run_hybrid as run_pbig_hybrid
 from algorithms.baselines import max_sinr, random_assignment, random_assoc_no_repair
 
 def run_method(env, method, fast=False):
@@ -18,6 +18,10 @@ def run_method(env, method, fast=False):
         a = max_sinr(env)
     elif method == "random":
         a = random_assignment(env)
+    elif method == "pbig_det":
+        a = run_pbig_det(env)
+    elif method == "pbig_hybrid":
+        a = run_pbig_hybrid(env)
     elif method == "random_no_repair":
         a = random_assoc_no_repair(env)
         m = compute_metrics(a, env)

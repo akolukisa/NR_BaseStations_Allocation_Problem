@@ -1,0 +1,6 @@
+method,feasible,total_Mbps,jain,objective,users,beams
+hga,True,634.74,0.1563,474075085.82,60,8
+pbig,True,1708.28,0.5149,1459685467.63,60,8
+ga,True,546.75,0.0863,396874000.27,60,8
+max_sinr,True,1213.43,0.2871,953927500.12,60,8
+random,True,19.22,0.0254,13599700.33,60,8

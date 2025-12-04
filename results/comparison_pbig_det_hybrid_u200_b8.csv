@@ -1,0 +1,4 @@
+method,feasible,total_bps,jain,objective,users,beams
+pbig,True,5721858874,0.4541,4784784951.3,200,8
+pbig_det,True,5868085324,0.4305,4865585569.4,200,8
+pbig_hybrid,True,7384131333,0.5852,6465265402.04,200,8

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Şekil 6.3: Hüzme Sayısının Sistem Veri Hızına Etkisi (Users=60)</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div style="padding:16px">
+    <h1>Şekil 6.3: Hüzme Sayısının Sistem Veri Hızına Etkisi (Users=60)</h1>
+    <canvas id="chart" height="120"></canvas>
+  </div>
+  <script>
+  fetch('../results/fig_6_3.csv?v=' + Date.now()).then(r=>r.text()).then(txt=>{
+    const lines = txt.trim().split('\n');
+    const rows = lines.slice(1).map(l=>l.split(','));
+    const labels = rows.map(r=>r[0]);
+    const beams8 = rows.map(r=>parseFloat(r[1]));
+    const beams16 = rows.map(r=>parseFloat(r[2]));
+    new Chart(document.getElementById('chart'), {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          { label: '8 Hüzme', data: beams8, backgroundColor: 'rgba(75, 85, 99, 0.7)' },
+          { label: '16 Hüzme', data: beams16, backgroundColor: 'rgba(59, 130, 246, 0.7)' }
+        ]
+      },
+      options: {
+        plugins: { legend: { position: 'bottom' } },
+        scales: {
+          y: { title: { display: true, text: 'Sistem Toplam Veri Hızı (Mbps)' } },
+          x: { title: { display: true, text: 'Algoritmalar' } }
+        }
+      }
+    });
+  }).catch(()=>{ document.getElementById('chart').outerHTML = '<div class="pill" style="padding:12px">Veri bulunamadı: results/fig_6_3.csv</div>' })
+  </script>
+</body>
+</html>
